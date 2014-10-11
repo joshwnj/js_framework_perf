@@ -8,19 +8,87 @@
 <link rel="stylesheet" href="/assets/stylesheets/screen.css" media="screen">
 
 <script src="/assets/vendors/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="http://underscorejs.org/underscore-min.js" type="text/javascript"></script>
 <script src="/assets/vendors/bootstrap-3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
 
 <script src="/assets/vendors/angular-1.2.22/angular.min.js" type="text/javascript"></script>
 <script src="/assets/vendors/angular-1.2.22/angular-resource.min.js" type="text/javascript"></script>
 <script src="/assets/vendors/angular-1.2.22/angular-ui-router.min.js" type="text/javascript"></script>
-<script src="/assets/javascripts/angular/app.js" type="text/javascript"></script>
+
+<script src="http://react.zpao.com/builds/master/latest/react.min.js" type="text/javascript"></script>
+
+<!-- <script src="/assets/javascripts/angular/app.js" type="text/javascript"></script> -->
 
 <div ng-app="angularApp">
-    <section class="container" ng-controller="TestController as ctrl">
-        <div class="row" ng-repeat="rows in data | pmkr.partition:6">
-            <div class="col-md-2" ng-repeat="row in rows">
-                <p style="font-size:{{row.size}};">{{row.face}}</p>
-            </div>
+    <section class="container">
+        <div class="col-md-6 col-md-offset-3 yellow-paper">
+            <h1 class="title my-title">my todo list</h1>
+            <form class="add-todo-form">
+                <input class="toggle" type="checkbox">
+                <label for="add-todo-input">
+                    <input type="text" name="todo" id="add-todo-input" placeholder="List what to do..">
+                </label>
+            </form>
+            <ul class="todo-list">
+                <li>
+                    <input class="toggle" type="checkbox">
+                    <label>My Todo 1</label>
+                </li>
+                <li>
+                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
+                    <label>My Todo 2</label>
+                </li>
+                <li>
+                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
+                    <label>My Todo 3</label>
+                </li>
+                <li>
+                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
+                    <label>My Todo 4</label>
+                </li>
+                <li>
+                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
+                    <label>My Todo 4</label>
+                </li>
+                <li>
+                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
+                    <label>My Todo 5</label>
+                </li>
+            </ul>
         </div>
+        
     </section>
 </div>
+
+<script >    
+(function(){
+    var app = angular.module('angularApp', []);
+
+
+})();
+// window.timeout = null;
+// window.totalTime = null;
+// window.loopCount = null;
+// window.startDate = null;
+// window.reset = function() {
+//     $('#grid').empty();
+//     $('#timing').html('&nbsp;');
+//     clearTimeout(timeout);
+// };
+// window.startClock = function () {
+//     loopCount = 0;
+//     totalTime = 0;
+//     startDate = Date.now();
+// }
+
+// window.benchmarkLoop = function(fn) {
+//     totalTime += Date.now() - startDate;
+//     startDate = Date.now();
+//     fn();
+//     loopCount++;
+//     if (loopCount % 20 === 0) {
+//         $('#timing').text('Performed ' + loopCount + ' iterations in ' + totalTime + ' ms (average ' + (totalTime / loopCount).toFixed(2) + ' ms per loop).');
+//     }
+//     timeout = _.defer(benchmarkLoop, fn);
+// };
+</script>

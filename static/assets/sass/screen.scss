@@ -4,38 +4,96 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 // @import "compass/reset";
+@import url("http://fonts.googleapis.com/css?family=Permanent+Marker|Architects+Daughter");
+@mixin box-shadow($y:0, $x:0, $blur:10px, $color:#DDDDDD, $side:0) {
+    -moz-box-shadow:    $y $x $blur $side $color;
+    -webkit-box-shadow: $y $x $blur $side $color;
+    box-shadow:         $y $x $blur $side $color;
+}
+
+body{
+	font-family: 'Architects Daughter', cursive;
+	background:{
+		image: url('/assets/images/bg.jpg');
+	}	 
+	color: #333;
+}
 
 section{
-	margin-top: 20px;
-}
-nav{
-	ul{
-		li:first-child{
-			line-height: 40px;
-			padding-right: 10px;
+	margin-top: 50px;
+	.title{
+		&.my-title{
+			font-size: 5em;
+			text-align: center;
+			margin: 20px 0;
+			margin-left: 78px;
+			font-family: 'Permanent Marker', cursive;
 		}
 	}
-}
-.item{
-	background-color: lighten(#EEE, 5%);
-	padding: 10px;
-	-webkit-border-radius: 5px; 
-	-moz-border-radius: 5px; 
-	border-radius: 5px; 
-	.productFace{
+	.yellow-paper{
+		position: relative;
+		padding: 0;
+		background:{
+			color: #FFFFCC;
+		}
+		@include box-shadow(0, 5px, 15px, #CCC);
+		&:before{
+			content: '';
+			border-left: 1px solid #F08080;
+			border-right: 1px solid #F08080;
+			width: 3px;
+			position: absolute;
+			top: 0;
+			left: 75px;
+			height: 100%;
+		}
+		label{
+			display: block;
+			margin-left: 78px;
+			input[type="text"]{
+				width: 100%;
+				font-size: 2em;
+				padding: 10px;
+				border-width: 0;
+				background-color: #FFFFCC;
+				&:focus{
+					border-width: 0;
+					outline-width: 0;
+				}
+			}
+		}
+	}
+	.todo-list{
+		padding: 0;
+		margin: 0;
+		li{
+			list-style: none;
+			border-top: 1px solid #00BFFF;
+			position: relative;
+			label{
+				white-space: pre;
+				word-break: break-word;
+				padding: 10px;
+				font-size: 1.5em;
+			}
+		}
+	}
+	.add-todo-form{
+		border-top: 1px solid #00BFFF;
+		position: relative;
+	}
+	.toggle{
 		text-align: center;
-		padding: 15px;
-		background-color: #FFF;
-		&.ad{
-			padding: 0;
-		}
+		width: 75px;
+		height: auto;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		margin: auto 0;
+		border: none;
+		// -webkit-appearance: none;
+		// -ms-appearance: none;
+		// -o-appearance: none;
+		// appearance: none;
 	}
-	[class*="fa-"]{
-	 	color: #428bca;
-	 	font-size: 17px;   
-	}
-}
-.loader{
-	text-align: center;
-	padding: 10px;
 }
