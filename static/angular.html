@@ -66,7 +66,6 @@
                 $scope.formData = {}
             }
             this.editTodo = function(event, index){
-                console.log(index);
                 event.preventDefault();
                 $scope.formData = $scope.todolist[index];
                 $scope.formData['index'] = index;
