@@ -20,7 +20,7 @@ body{
 }
 
 section{
-	margin-top: 50px;
+	margin: 50px 0;
 	.title{
 		&.my-title{
 			font-size: 5em;
@@ -50,6 +50,7 @@ section{
 		label{
 			display: block;
 			margin-left: 78px;
+			margin-bottom: 0;
 			input[type="text"]{
 				width: 100%;
 				font-size: 2em;
@@ -75,6 +76,37 @@ section{
 				word-break: break-word;
 				padding: 10px;
 				font-size: 1.5em;
+				padding-right: 70px;
+			}
+			.action{
+				text-align: center;
+				width: 60px;
+				display: table;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 5px;
+				margin: auto 0;
+				border: none;
+				a{
+					margin: 0 5px;
+					font-size: 1.8em;
+					display: table-cell;
+					vertical-align: middle;
+					&:first-child{
+						color: lighten(#FFCC00, 20%);
+						&:hover{
+							color: lighten(#FFCC00, 10%);
+						}
+					}
+					&:last-child{
+						font-size: 2em;
+						color: lighten(red, 20%);
+						&:hover{
+							color: lighten(red, 10%);
+						}
+					}
+				}
 			}
 		}
 	}

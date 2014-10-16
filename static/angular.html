@@ -20,51 +20,65 @@
 <!-- <script src="/assets/javascripts/angular/app.js" type="text/javascript"></script> -->
 
 <div ng-app="angularApp">
-    <section class="container">
+    <section class="container" ng-controller="TodoController as todo">
         <div class="col-md-6 col-md-offset-3 yellow-paper">
             <h1 class="title my-title">my todo list</h1>
-            <form class="add-todo-form">
+            <form class="add-todo-form" ng-submit="todo.addTodo()">
                 <input class="toggle" type="checkbox">
                 <label for="add-todo-input">
-                    <input type="text" name="todo" id="add-todo-input" placeholder="List what to do..">
+                    <input type="text" name="todo" id="add-todo-input" ng-model="formData.todo" placeholder="List what to do..">
                 </label>
             </form>
             <ul class="todo-list">
-                <li>
-                    <input class="toggle" type="checkbox">
-                    <label>My Todo 1</label>
-                </li>
-                <li>
-                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
-                    <label>My Todo 2</label>
-                </li>
-                <li>
-                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
-                    <label>My Todo 3</label>
-                </li>
-                <li>
-                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
-                    <label>My Todo 4</label>
-                </li>
-                <li>
-                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
-                    <label>My Todo 4</label>
-                </li>
-                <li>
-                    <input class="toggle" type="checkbox" name="check_all" id="check-all">
-                    <label>My Todo 5</label>
+                <li ng-repeat="item in todolist track by $index" ng-mouseover="todo.setCurrent($index)" ng-mouseleave="todo.setCurrent()">
+                    <input class="toggle" type="checkbox" value="{{$index}}">
+                    <label>{{item.todo}}</label>
+                    <span class="action" ng-show="$index == currentIndex">
+                        <a href="#" ng-click="todo.editTodo($event, $index)"><i class="fa fa-pencil"></i></a>
+                        <a href="#"><i class="fa fa-times"></i></a>
+                    </span>
                 </li>
             </ul>
-        </div>
-        
+            {{formData}}
+        </div>  
     </section>
 </div>
 
-<script >    
+<script type="text/javascript">    
 (function(){
     var app = angular.module('angularApp', []);
 
+    app.controller('TodoController', [
+        '$scope',
+        function($scope){
+            $scope.currentIndex;
+            $scope.formData = {}
+            $scope.todolist = [
+                {todo : 'Create'},
+                {todo : 'Read'},
+                {todo : 'Update'},
+                {todo : 'Delete'}
+            ];
+            this.addTodo = function(){
+                if(typeof $scope.formData.index === "undefined"){
+                    $scope.todolist.push($scope.formData);
+                }
+                $scope.formData = {}
+            }
+            this.editTodo = function(event, index){
+                console.log(index);
+                event.preventDefault();
+                $scope.formData = $scope.todolist[index];
+                $scope.formData['index'] = index;
+            }
 
+            this.setCurrent = function(index){
+                if($scope.currentIndex != index){
+                    $scope.currentIndex = index;
+                }
+            }
+        }
+    ]);
 })();
 // window.timeout = null;
 // window.totalTime = null;

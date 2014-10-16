@@ -12,7 +12,7 @@ body {
 
 /* line 22, ../sass/screen.scss */
 section {
-  margin-top: 50px;
+  margin: 50px 0;
 }
 /* line 25, ../sass/screen.scss */
 section .title.my-title {
@@ -46,8 +46,9 @@ section .yellow-paper:before {
 section .yellow-paper label {
   display: block;
   margin-left: 78px;
+  margin-bottom: 0;
 }
-/* line 53, ../sass/screen.scss */
+/* line 54, ../sass/screen.scss */
 section .yellow-paper label input[type="text"] {
   width: 100%;
   font-size: 2em;
@@ -55,35 +56,72 @@ section .yellow-paper label input[type="text"] {
   border-width: 0;
   background-color: #FFFFCC;
 }
-/* line 59, ../sass/screen.scss */
+/* line 60, ../sass/screen.scss */
 section .yellow-paper label input[type="text"]:focus {
   border-width: 0;
   outline-width: 0;
 }
-/* line 66, ../sass/screen.scss */
+/* line 67, ../sass/screen.scss */
 section .todo-list {
   padding: 0;
   margin: 0;
 }
-/* line 69, ../sass/screen.scss */
+/* line 70, ../sass/screen.scss */
 section .todo-list li {
   list-style: none;
   border-top: 1px solid #00BFFF;
   position: relative;
 }
-/* line 73, ../sass/screen.scss */
+/* line 74, ../sass/screen.scss */
 section .todo-list li label {
   white-space: pre;
   word-break: break-word;
   padding: 10px;
   font-size: 1.5em;
+  padding-right: 70px;
 }
 /* line 81, ../sass/screen.scss */
+section .todo-list li .action {
+  text-align: center;
+  width: 60px;
+  display: table;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 5px;
+  margin: auto 0;
+  border: none;
+}
+/* line 91, ../sass/screen.scss */
+section .todo-list li .action a {
+  margin: 0 5px;
+  font-size: 1.8em;
+  display: table-cell;
+  vertical-align: middle;
+}
+/* line 96, ../sass/screen.scss */
+section .todo-list li .action a:first-child {
+  color: #ffe066;
+}
+/* line 98, ../sass/screen.scss */
+section .todo-list li .action a:first-child:hover {
+  color: #ffd633;
+}
+/* line 102, ../sass/screen.scss */
+section .todo-list li .action a:last-child {
+  font-size: 2em;
+  color: #ff6666;
+}
+/* line 105, ../sass/screen.scss */
+section .todo-list li .action a:last-child:hover {
+  color: #ff3333;
+}
+/* line 113, ../sass/screen.scss */
 section .add-todo-form {
   border-top: 1px solid #00BFFF;
   position: relative;
 }
-/* line 85, ../sass/screen.scss */
+/* line 117, ../sass/screen.scss */
 section .toggle {
   text-align: center;
   width: 75px;
