@@ -1,0 +1,131 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+// @import "compass/reset";
+@import url("http://fonts.googleapis.com/css?family=Permanent+Marker|Architects+Daughter");
+@mixin box-shadow($y:0, $x:0, $blur:10px, $color:#DDDDDD, $side:0) {
+    -moz-box-shadow:    $y $x $blur $side $color;
+    -webkit-box-shadow: $y $x $blur $side $color;
+    box-shadow:         $y $x $blur $side $color;
+}
+
+body{
+	font-family: 'Architects Daughter', cursive;
+	background:{
+		image: url('/images/bg.jpg');
+	}	 
+	color: #333;
+}
+
+section{
+	margin: 50px 0;
+	.title{
+		&.my-title{
+			font-size: 5em;
+			text-align: center;
+			margin: 20px 0;
+			margin-left: 78px;
+			font-family: 'Permanent Marker', cursive;
+		}
+	}
+	.yellow-paper{
+		position: relative;
+		padding: 0;
+		background:{
+			color: #FFFFCC;
+		}
+		@include box-shadow(0, 5px, 15px, #CCC);
+		&:before{
+			content: '';
+			border-left: 1px solid #F08080;
+			border-right: 1px solid #F08080;
+			width: 3px;
+			position: absolute;
+			top: 0;
+			left: 75px;
+			height: 100%;
+		}
+		label{
+			display: block;
+			margin-left: 78px;
+			margin-bottom: 0;
+			input[type="text"]{
+				width: 100%;
+				font-size: 2em;
+				padding: 10px;
+				border-width: 0;
+				background-color: #FFFFCC;
+				&:focus{
+					border-width: 0;
+					outline-width: 0;
+				}
+			}
+		}
+	}
+	.todo-list{
+		padding: 0;
+		margin: 0;
+		li{
+			list-style: none;
+			border-top: 1px solid #00BFFF;
+			position: relative;
+			label{
+				white-space: pre;
+				word-break: break-word;
+				padding: 10px;
+				font-size: 1.5em;
+				padding-right: 70px;
+			}
+			.action{
+				text-align: center;
+				width: 60px;
+				display: table;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 5px;
+				margin: auto 0;
+				border: none;
+				a{
+					margin: 0 5px;
+					font-size: 1.8em;
+					display: table-cell;
+					vertical-align: middle;
+					&:first-child{
+						color: lighten(#FFCC00, 20%);
+						&:hover{
+							color: lighten(#FFCC00, 10%);
+						}
+					}
+					&:last-child{
+						font-size: 2em;
+						color: lighten(red, 20%);
+						&:hover{
+							color: lighten(red, 10%);
+						}
+					}
+				}
+			}
+		}
+	}
+	.add-todo-form{
+		border-top: 1px solid #00BFFF;
+		position: relative;
+	}
+	.toggle{
+		text-align: center;
+		width: 75px;
+		height: auto;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		margin: auto 0;
+		border: none;
+		// -webkit-appearance: none;
+		// -ms-appearance: none;
+		// -o-appearance: none;
+		// appearance: none;
+	}
+}
