@@ -21,15 +21,7 @@ body{
 
 section{
 	margin: 50px 0;
-	.title{
-		&.my-title{
-			font-size: 5em;
-			text-align: center;
-			margin: 20px 0;
-			margin-left: 78px;
-			font-family: 'Permanent Marker', cursive;
-		}
-	}
+	.title{}
 	.yellow-paper{
 		position: relative;
 		padding: 0;
@@ -51,15 +43,49 @@ section{
 			display: block;
 			margin-left: 78px;
 			margin-bottom: 0;
+			&.add-todo-input{
+				margin: 5px;
+				margin-left: 83px;
+			}
 			input[type="text"]{
 				width: 100%;
 				font-size: 2em;
-				padding: 10px;
+				padding: 5px;
 				border-width: 0;
 				background-color: #FFFFCC;
+				border-bottom: 1px solid #999;
 				&:focus{
-					border-width: 0;
 					outline-width: 0;
+				}
+			}
+		}
+		.yellowpage-header{
+			position: relative;
+			.my-title{
+				font-size: 5em;
+				text-align: center;
+				margin: 20px 0;
+				margin-left: 78px;
+				font-family: 'Permanent Marker', cursive;
+			}
+			.delete-selected{
+				text-align: center;
+				width: 75px;
+				height: auto;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin: auto 0;
+				border: none;
+				display: table;
+				a{
+					font-size: 2em;
+					display: table-cell;
+					vertical-align: middle;
+					color: lighten(red, 20%);
+					&:hover{
+						color: lighten(red, 10%);
+					}	
 				}
 			}
 		}
