@@ -43,6 +43,10 @@ section{
 			display: block;
 			margin-left: 78px;
 			margin-bottom: 0;
+			&.selected{
+				color: #999;
+				text-decoration: line-through;
+			}
 			&.add-todo-input{
 				margin: 5px;
 				margin-left: 83px;

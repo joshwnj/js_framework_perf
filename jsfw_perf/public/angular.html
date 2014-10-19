@@ -42,8 +42,8 @@
             </form>
             <ul class="todo-list">
                 <li ng-repeat="item in todoList track by $index" ng-mouseover="todo.setCurrent($index)" ng-mouseleave="todo.setCurrent()">
-                    <input ng-model="item.selected" class="toggle" type="checkbox" value="{{$index}}">
-                    <label>{{item.todo}}</label>
+                    <input ng-model="item.selected" class="toggle select-todo" type="checkbox" value="{{$index}}">
+                    <label ng-class="{selected:item.selected}">{{item.todo}}</label>
                     <span class="action" ng-show="$index == currentIndex">
                         <a href="#" ng-click="todo.editTodo($event, $index)"><i class="fa fa-pencil"></i></a>
                         <a href="#" class="delete-btn" ng-click="todo.deleteTodo($event, $index)"><i class="fa fa-times"></i></a>
@@ -54,6 +54,8 @@
         <div class="col-md-3">
             <button onclick="startAddition();">Insert 100 items</button>
             <p class="print-wrap" id="simulation-time-add-wrap">Total time: 0</p>
+            <button onclick="selectAll();">Select all items</button>
+            <p class="print-wrap" id="simulation-time-select-wrap">Total time: 0</p>
             <button onclick="deleteAll();">Delete all items</button>
             <p class="print-wrap" id="simulation-time-delete-wrap">Total time: 0</p>
         </div>
@@ -177,6 +179,19 @@ function deleteAll(){
     var deleteButtons = document.querySelectorAll('.delete-btn');
     for(var i = deleteButtons.length; i--;){
         deleteButtons[i].click();
+    }
+    totalTime = Date.now() - startTime;
+    printTime.innerHTML = 'Total time: ' + totalTime + ' ms'
+}
+function selectAll(){
+    var startTime = Date.now()
+    var printTime = document.getElementById('simulation-time-select-wrap');
+    var inputSelects = document.querySelectorAll('.select-todo');
+    for(var i = inputSelects.length; i--;){
+        var inputEvent = document.createEvent('Event');
+        inputEvent.initEvent('click', true, true);
+        inputSelects[i].checked = true;
+        inputSelects[i].dispatchEvent(inputEvent);
     }
     totalTime = Date.now() - startTime;
     printTime.innerHTML = 'Total time: ' + totalTime + ' ms'
