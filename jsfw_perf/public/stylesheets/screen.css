@@ -79,32 +79,37 @@ section .yellow-paper .yellowpage-header .delete-selected {
   top: 0;
   bottom: 0;
   margin: auto 0;
+  margin-left: -30px;
   border: none;
   display: table;
 }
-/* line 81, ../../sass/screen.scss */
+/* line 82, ../../sass/screen.scss */
 section .yellow-paper .yellowpage-header .delete-selected a {
   font-size: 2em;
   display: table-cell;
   vertical-align: middle;
   color: #ff6666;
 }
-/* line 86, ../../sass/screen.scss */
+/* line 87, ../../sass/screen.scss */
 section .yellow-paper .yellowpage-header .delete-selected a:hover {
   color: #ff3333;
 }
-/* line 93, ../../sass/screen.scss */
+/* line 90, ../../sass/screen.scss */
+section .yellow-paper .yellowpage-header .delete-selected a img {
+  width: 120px;
+}
+/* line 97, ../../sass/screen.scss */
 section .todo-list {
   padding: 0;
   margin: 0;
 }
-/* line 96, ../../sass/screen.scss */
+/* line 100, ../../sass/screen.scss */
 section .todo-list li {
   list-style: none;
   border-top: 1px solid #00BFFF;
   position: relative;
 }
-/* line 100, ../../sass/screen.scss */
+/* line 104, ../../sass/screen.scss */
 section .todo-list li label {
   white-space: pre;
   word-break: break-word;
@@ -112,7 +117,7 @@ section .todo-list li label {
   font-size: 1.5em;
   padding-right: 70px;
 }
-/* line 107, ../../sass/screen.scss */
+/* line 111, ../../sass/screen.scss */
 section .todo-list li .action {
   text-align: center;
   width: 60px;
@@ -124,36 +129,36 @@ section .todo-list li .action {
   margin: auto 0;
   border: none;
 }
-/* line 117, ../../sass/screen.scss */
+/* line 121, ../../sass/screen.scss */
 section .todo-list li .action a {
   margin: 0 5px;
   font-size: 1.8em;
   display: table-cell;
   vertical-align: middle;
 }
-/* line 122, ../../sass/screen.scss */
+/* line 126, ../../sass/screen.scss */
 section .todo-list li .action a:first-child {
   color: #ffe066;
 }
-/* line 124, ../../sass/screen.scss */
+/* line 128, ../../sass/screen.scss */
 section .todo-list li .action a:first-child:hover {
   color: #ffd633;
 }
-/* line 128, ../../sass/screen.scss */
+/* line 132, ../../sass/screen.scss */
 section .todo-list li .action a:last-child {
   font-size: 2em;
   color: #ff6666;
 }
-/* line 131, ../../sass/screen.scss */
+/* line 135, ../../sass/screen.scss */
 section .todo-list li .action a:last-child:hover {
   color: #ff3333;
 }
-/* line 139, ../../sass/screen.scss */
+/* line 143, ../../sass/screen.scss */
 section .add-todo-form {
   border-top: 1px solid #00BFFF;
   position: relative;
 }
-/* line 143, ../../sass/screen.scss */
+/* line 147, ../../sass/screen.scss */
 section .toggle {
   text-align: center;
   width: 75px;
@@ -163,4 +168,9 @@ section .toggle {
   bottom: 0;
   margin: auto 0;
   border: none;
+}
+/* line 161, ../../sass/screen.scss */
+section .print-wrap {
+  margin: 10px 0;
+  font-size: 1.3em;
 }

@@ -76,6 +76,7 @@ section{
 				top: 0;
 				bottom: 0;
 				margin: auto 0;
+				margin-left: -30px;
 				border: none;
 				display: table;
 				a{
@@ -86,6 +87,9 @@ section{
 					&:hover{
 						color: lighten(red, 10%);
 					}	
+					img{
+						width: 120px;
+					}
 				}
 			}
 		}
@@ -153,5 +157,9 @@ section{
 		// -ms-appearance: none;
 		// -o-appearance: none;
 		// appearance: none;
+	}
+	.print-wrap{
+		margin: 10px 0;
+		font-size: 1.3em;
 	}
 }
