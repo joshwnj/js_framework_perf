@@ -19,8 +19,18 @@ body{
 	color: #333;
 }
 
+.navbar-brand{
+	padding: 4px 15px;
+	path{
+		fill: #000000 !important;
+	}
+}
+
 section{
-	margin: 50px 0;
+	h1{
+		margin: 10px 0 20px;
+		text-align: center;
+	}
 	.title{}
 	.yellow-paper{
 		position: relative;

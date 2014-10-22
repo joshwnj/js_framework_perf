@@ -11,10 +11,20 @@ body {
 }
 
 /* line 22, ../../sass/screen.scss */
-section {
-  margin: 50px 0;
+.navbar-brand {
+  padding: 4px 15px;
 }
-/* line 25, ../../sass/screen.scss */
+/* line 24, ../../sass/screen.scss */
+.navbar-brand path {
+  fill: #000000 !important;
+}
+
+/* line 30, ../../sass/screen.scss */
+section h1 {
+  margin: 10px 0 20px;
+  text-align: center;
+}
+/* line 35, ../../sass/screen.scss */
 section .yellow-paper {
   position: relative;
   padding: 0;
@@ -23,7 +33,7 @@ section .yellow-paper {
   -webkit-box-shadow: 0 5px 15px 0 #cccccc;
   box-shadow: 0 5px 15px 0 #cccccc;
 }
-/* line 32, ../../sass/screen.scss */
+/* line 42, ../../sass/screen.scss */
 section .yellow-paper:before {
   content: '';
   border-left: 1px solid #F08080;
@@ -34,23 +44,23 @@ section .yellow-paper:before {
   left: 75px;
   height: 100%;
 }
-/* line 42, ../../sass/screen.scss */
+/* line 52, ../../sass/screen.scss */
 section .yellow-paper label {
   display: block;
   margin-left: 78px;
   margin-bottom: 0;
 }
-/* line 46, ../../sass/screen.scss */
+/* line 56, ../../sass/screen.scss */
 section .yellow-paper label.selected {
   color: #999;
   text-decoration: line-through;
 }
-/* line 50, ../../sass/screen.scss */
+/* line 60, ../../sass/screen.scss */
 section .yellow-paper label.add-todo-input {
   margin: 5px;
   margin-left: 83px;
 }
-/* line 54, ../../sass/screen.scss */
+/* line 64, ../../sass/screen.scss */
 section .yellow-paper label input[type="text"] {
   width: 100%;
   font-size: 2em;
@@ -59,15 +69,15 @@ section .yellow-paper label input[type="text"] {
   background-color: #FFFFCC;
   border-bottom: 1px solid #999;
 }
-/* line 61, ../../sass/screen.scss */
+/* line 71, ../../sass/screen.scss */
 section .yellow-paper label input[type="text"]:focus {
   outline-width: 0;
 }
-/* line 66, ../../sass/screen.scss */
+/* line 76, ../../sass/screen.scss */
 section .yellow-paper .yellowpage-header {
   position: relative;
 }
-/* line 68, ../../sass/screen.scss */
+/* line 78, ../../sass/screen.scss */
 section .yellow-paper .yellowpage-header .my-title {
   font-size: 5em;
   text-align: center;
@@ -75,7 +85,7 @@ section .yellow-paper .yellowpage-header .my-title {
   margin-left: 78px;
   font-family: 'Permanent Marker', cursive;
 }
-/* line 75, ../../sass/screen.scss */
+/* line 85, ../../sass/screen.scss */
 section .yellow-paper .yellowpage-header .delete-selected {
   text-align: center;
   width: 75px;
@@ -88,33 +98,33 @@ section .yellow-paper .yellowpage-header .delete-selected {
   border: none;
   display: table;
 }
-/* line 86, ../../sass/screen.scss */
+/* line 96, ../../sass/screen.scss */
 section .yellow-paper .yellowpage-header .delete-selected a {
   font-size: 2em;
   display: table-cell;
   vertical-align: middle;
   color: #ff6666;
 }
-/* line 91, ../../sass/screen.scss */
+/* line 101, ../../sass/screen.scss */
 section .yellow-paper .yellowpage-header .delete-selected a:hover {
   color: #ff3333;
 }
-/* line 94, ../../sass/screen.scss */
+/* line 104, ../../sass/screen.scss */
 section .yellow-paper .yellowpage-header .delete-selected a img {
   width: 120px;
 }
-/* line 101, ../../sass/screen.scss */
+/* line 111, ../../sass/screen.scss */
 section .todo-list {
   padding: 0;
   margin: 0;
 }
-/* line 104, ../../sass/screen.scss */
+/* line 114, ../../sass/screen.scss */
 section .todo-list li {
   list-style: none;
   border-top: 1px solid #00BFFF;
   position: relative;
 }
-/* line 108, ../../sass/screen.scss */
+/* line 118, ../../sass/screen.scss */
 section .todo-list li label {
   white-space: pre;
   word-break: break-word;
@@ -122,7 +132,7 @@ section .todo-list li label {
   font-size: 1.5em;
   padding-right: 70px;
 }
-/* line 115, ../../sass/screen.scss */
+/* line 125, ../../sass/screen.scss */
 section .todo-list li .action {
   text-align: center;
   width: 60px;
@@ -134,36 +144,36 @@ section .todo-list li .action {
   margin: auto 0;
   border: none;
 }
-/* line 125, ../../sass/screen.scss */
+/* line 135, ../../sass/screen.scss */
 section .todo-list li .action a {
   margin: 0 5px;
   font-size: 1.8em;
   display: table-cell;
   vertical-align: middle;
 }
-/* line 130, ../../sass/screen.scss */
+/* line 140, ../../sass/screen.scss */
 section .todo-list li .action a:first-child {
   color: #ffe066;
 }
-/* line 132, ../../sass/screen.scss */
+/* line 142, ../../sass/screen.scss */
 section .todo-list li .action a:first-child:hover {
   color: #ffd633;
 }
-/* line 136, ../../sass/screen.scss */
+/* line 146, ../../sass/screen.scss */
 section .todo-list li .action a:last-child {
   font-size: 2em;
   color: #ff6666;
 }
-/* line 139, ../../sass/screen.scss */
+/* line 149, ../../sass/screen.scss */
 section .todo-list li .action a:last-child:hover {
   color: #ff3333;
 }
-/* line 147, ../../sass/screen.scss */
+/* line 157, ../../sass/screen.scss */
 section .add-todo-form {
   border-top: 1px solid #00BFFF;
   position: relative;
 }
-/* line 151, ../../sass/screen.scss */
+/* line 161, ../../sass/screen.scss */
 section .toggle {
   text-align: center;
   width: 75px;
@@ -174,7 +184,7 @@ section .toggle {
   margin: auto 0;
   border: none;
 }
-/* line 165, ../../sass/screen.scss */
+/* line 175, ../../sass/screen.scss */
 section .print-wrap {
   margin: 10px 0;
   font-size: 1.3em;
