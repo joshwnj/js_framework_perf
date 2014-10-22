@@ -9,6 +9,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var angular = require('./routes/angular');
 var backbone = require('./routes/backbone');
+var knockout = require('./routes/knockout');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/angular', angular);
 app.use('/backbone', backbone);
+app.use('/knockout', knockout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

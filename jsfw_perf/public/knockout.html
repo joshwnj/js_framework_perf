@@ -1,0 +1,215 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knockout - Performance Test</title>
+
+<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" media="screen">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/stylesheets/screen.css" media="screen">
+
+<script src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/bower_components/underscore/underscore-min.js" type="text/javascript"></script>
+<script src="/bower_components/backbone/backbone.js" type="text/javascript"></script>
+
+
+<div ng-app="todoApp">
+    <section class="container" ng-controller="TodoController as todo">
+        <div class="col-md-6 col-md-offset-3 yellow-paper">
+            <div class="yellowpage-header">
+                <span class="delete-selected">
+                    <a href="#" style="display:none;" title="Delete Selected"> <img src="/images/eraser.png" alt="Delete Selected"/></a>
+                </span>
+                <h1 class="title my-title">my todo list</h1>
+            </div>
+            <form class="add-todo-form">
+                <input type="checkbox" class="toggle">
+                <label for="add-todo-input" class="add-todo-input">
+                    <input type="text" name="todo" id="add-todo-input" placeholder="List what to do...">
+                </label>
+            </form>
+            <ul class="todo-list"></ul>
+        </div>
+        <div class="col-md-3">
+            <button onclick="startAddition();">Insert 100 items</button>
+            <p class="print-wrap" id="simulation-time-add-wrap">Total time: 0 ms</p>
+            <button onclick="selectAll();">Select all items</button>
+            <p class="print-wrap" id="simulation-time-select-wrap">Total time: 0 ms</p>
+            <button onclick="deleteAll();">Delete all items</button>
+            <p class="print-wrap" id="simulation-time-delete-wrap">Total time: 0 ms</p>
+        </div>
+    </section>
+</div>
+<!-- TEMPLATES -->
+<script type="text/template" id="todo-template">
+    <input class="toggle select-todo" type="checkbox" value="<%= id %>" <%= selected ? 'checked' : ''%> >
+    <label class="<%= selected ? 'selected' : ''%>"><%= todo %></label>
+    <span class="action" style="display:none;">
+        <a href="#" class="edit-btn"><i class="fa fa-pencil"></i></a>
+        <a href="#" class="delete-btn"><i class="fa fa-times"></i></a>
+    </span>
+</script> 
+<script type="text/javascript">    
+(function($){
+    var Todo = Backbone.Model.extend({
+        defaults : function(){
+            return {
+                selected: false,
+                todo: ''
+            }
+        }
+    });
+    var TodosList = Backbone.Collection.extend({
+        model: Todo
+    });
+    var todos = new TodosList([
+        new Todo({todo: 'Create',id:0}), 
+        new Todo({todo: 'Read',id:1}),
+        new Todo({todo: 'Update',id:2}), 
+        new Todo({todo: 'Delete',id:3})
+    ]);
+    var TodoView = Backbone.View.extend({
+        model: new Todo(),
+        tagName: 'li',
+        events : {
+            'click .edit-btn': 'editTodo',
+            'click .delete-btn' : 'deleteTodo',
+            'click .select-todo' : 'selectTodo',
+            'mouseover' : 'toggleAction',
+            'mouseout' : 'toggleAction'
+        },
+        initialize: function(){
+            this.template = _.template($('#todo-template').html());
+            this.model.on('change', this.render, this);
+        },
+        render: function(){
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+        },
+        toggleAction : function(e){
+            if (e.type == 'mouseover'){
+                $('.action',this.$el).show();
+            }else{
+                $('.action',this.$el).hide();
+            }
+            e.preventDefault();
+        },
+        selectTodo : function(e){
+            this.model.set({selected: e.target.checked});
+            e.preventDefault();
+        },
+        editTodo : function(e){
+            e.preventDefault();
+        },
+        deleteTodo : function(e){
+            todos.remove(this.model);
+            e.preventDefault();
+        }
+    });
+    var TodosView = Backbone.View.extend({
+        model : todos,
+        el : $('.todo-list'),
+        initialize : function(){
+            this.model.on('add', this.render, this);
+            this.model.on('remove', this.change, this);
+            this.model.on('change', this.change, this);
+        },
+        change : function(){
+            var allSet = true,
+                allClear = true;
+            _.each(this.model.toArray(), function(todo, index){
+                if (todo.get('selected')) {
+                    allClear = false;
+                } else {
+                    allSet = false;
+                }
+            });
+            if (!allClear){
+                $('.delete-selected a').show();
+            }else{
+                $('.delete-selected a').hide();
+            }
+            this.render();
+        },
+        render : function(){
+            var self = this;
+            _.delay(function(){
+                self.$el.html('');
+                _.each(self.model.toArray(), function(todo, index){
+                    todo = new TodoView({model: todo});
+                    self.$el.append(todo.$el);
+                    todo.render();
+                });
+            }, 0);
+            return this;
+        }
+    });
+
+
+    $(document).ready(function(){
+        var todoAppView = new TodosView();
+        todoAppView.render();
+        $('.add-todo-form').submit(function(e){
+            var todo = new Todo({todo: $('#add-todo-input').val(),id : todoAppView.model.toArray().length++});
+            todos.add(todo);
+            $('#add-todo-input').val("");
+            e.preventDefault();
+        });
+        $('.add-todo-form .toggle').change(function(e){
+            var self = this;
+            _.each(todoAppView.model.toArray(), function(todo, index){
+                todo.set({selected: self.checked});
+            });
+        });
+        $('.delete-selected a').click(function(e){
+             _.each(todoAppView.model.toArray(), function(todo, index){
+                if(todo.get('selected')){
+                    todoAppView.model.remove(todo)
+                }
+            });
+            e.preventDefault();
+        });
+    });
+
+})(jQuery);
+
+function startAddition(){
+    var startTime = Date.now()
+    var newTodo = document.getElementById('add-todo-input');
+    var printTime = document.getElementById('simulation-time-add-wrap');
+    var submitEvent = document.createEvent('Event');
+    submitEvent.initEvent('submit', true, true);
+    for (var i = 0; i < 100; i++) {
+        var inputEvent = document.createEvent('Event');
+        inputEvent.initEvent('input', true, true);
+        newTodo.value = 'Something to do ' + i;
+        newTodo.dispatchEvent(inputEvent);
+        newTodo.form.dispatchEvent(submitEvent);
+    }
+    totalTime = Date.now() - startTime;
+    printTime.innerHTML = 'Total time: ' + totalTime + ' ms'
+};
+function deleteAll(){
+    var startTime = Date.now()
+    var printTime = document.getElementById('simulation-time-delete-wrap');
+    var deleteButtons = document.querySelectorAll('.delete-btn');
+    for(var i = deleteButtons.length; i--;){
+        deleteButtons[i].click();
+    }
+    totalTime = Date.now() - startTime;
+    printTime.innerHTML = 'Total time: ' + totalTime + ' ms'
+};
+function selectAll(){
+    var startTime = Date.now()
+    var printTime = document.getElementById('simulation-time-select-wrap');
+    var inputSelects = document.querySelectorAll('.select-todo');
+    for(var i = inputSelects.length; i--;){
+        var inputEvent = document.createEvent('Event');
+        inputEvent.initEvent('click', true, true);
+        inputSelects[i].checked = true;
+        inputSelects[i].dispatchEvent(inputEvent);
+    }
+    totalTime = Date.now() - startTime;
+    printTime.innerHTML = 'Total time: ' + totalTime + ' ms'
+};
+</script>
