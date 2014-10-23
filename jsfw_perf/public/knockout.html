@@ -10,7 +10,7 @@
 <script src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/bower_components/underscore/underscore-min.js" type="text/javascript"></script>
-<script src="/bower_components/backbone/backbone.js" type="text/javascript"></script>
+<script src="/bower_components/knockout/dist/knockout.js" type="text/javascript"></script>
 
 <div>
     <header class="navbar navbar-default navbar-static-top" role="navigation">
@@ -45,17 +45,26 @@
         <div class="col-md-6 col-md-offset-3 yellow-paper">
             <div class="yellowpage-header">
                 <span class="delete-selected">
-                    <a href="#" style="display:none;" title="Delete Selected"> <img src="/images/eraser.png" alt="Delete Selected"/></a>
+                    <a href="#" data-bind="click: deleteAllTodos" title="Delete Selected"> <img src="/images/eraser.png" alt="Delete Selected"/></a>
                 </span>
                 <h1 class="title my-title">my todo list</h1>
             </div>
-            <form class="add-todo-form">
-                <input type="checkbox" class="toggle">
+            <form class="add-todo-form" data-bind="submit: addTodo">
+                <input type="checkbox" class="toggle" data-bind="checked: selectAllTodos">
                 <label for="add-todo-input" class="add-todo-input">
-                    <input type="text" name="todo" id="add-todo-input" placeholder="List what to do...">
+                    <input type="text" name="todo" id="add-todo-input" data-bind="value: todoValue" placeholder="List what to do...">
                 </label>
             </form>
-            <ul class="todo-list"></ul>
+            <ul class="todo-list" data-bind="foreach: todos">
+                <li data-bind="event: {mouseover: $parent.showAction, mouseout: $parent.hideAction}">
+                    <input class="toggle select-todo" type="checkbox" data-bind="value:id, checked: selected" >
+                    <label data-bind="css: {selected: selected }, text: todo()"></label>
+                    <span class="action" data-bind="style: {display: actionVisible() ? 'table' : 'none'}">
+                        <a href="#" class="edit-btn"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="delete-btn" data-bind="click: $parent.deleteTodo.bind($parent)"><i class="fa fa-times"></i></a>
+                    </span>
+                </li>
+            </ul>
         </div>
         <div class="col-md-3">
             <button onclick="startAddition();">Insert 100 items</button>
@@ -67,135 +76,99 @@
         </div>
     </section>
 </div>
-<!-- TEMPLATES -->
-<script type="text/template" id="todo-template">
-    <input class="toggle select-todo" type="checkbox" value="<%= id %>" <%= selected ? 'checked' : ''%> >
-    <label class="<%= selected ? 'selected' : ''%>"><%= todo %></label>
-    <span class="action" style="display:none;">
-        <a href="#" class="edit-btn"><i class="fa fa-pencil"></i></a>
-        <a href="#" class="delete-btn"><i class="fa fa-times"></i></a>
-    </span>
-</script> 
 <script type="text/javascript">    
 (function($){
-    var Todo = Backbone.Model.extend({
-        defaults : function(){
-            return {
-                selected: false,
-                todo: ''
-            }
-        }
-    });
-    var TodosList = Backbone.Collection.extend({
-        model: Todo
-    });
-    var todos = new TodosList([
-        new Todo({todo: 'Create',id:0}), 
-        new Todo({todo: 'Read',id:1}),
-        new Todo({todo: 'Update',id:2}), 
-        new Todo({todo: 'Delete',id:3})
-    ]);
-    var TodoView = Backbone.View.extend({
-        model: new Todo(),
-        tagName: 'li',
-        events : {
-            'click .edit-btn': 'editTodo',
-            'click .delete-btn' : 'deleteTodo',
-            'click .select-todo' : 'selectTodo',
-            'mouseover' : 'toggleAction',
-            'mouseout' : 'toggleAction'
-        },
-        initialize: function(){
-            this.template = _.template($('#todo-template').html());
-            this.model.on('change', this.render, this);
-        },
-        render: function(){
-            this.$el.html(this.template(this.model.toJSON()));
-            return this;
-        },
-        toggleAction : function(e){
-            if (e.type == 'mouseover'){
-                $('.action',this.$el).show();
-            }else{
-                $('.action',this.$el).hide();
-            }
-            e.preventDefault();
-        },
-        selectTodo : function(e){
-            this.model.set({selected: e.target.checked});
-            e.preventDefault();
-        },
-        editTodo : function(e){
-            e.preventDefault();
-        },
-        deleteTodo : function(e){
-            todos.remove(this.model);
-            e.preventDefault();
-        }
-    });
-    var TodosView = Backbone.View.extend({
-        model : todos,
-        el : $('.todo-list'),
-        initialize : function(){
-            this.model.on('add', this.render, this);
-            this.model.on('remove', this.change, this);
-            this.model.on('change', this.change, this);
-        },
-        change : function(){
-            var allSet = true,
-                allClear = true;
-            _.each(this.model.toArray(), function(todo, index){
-                if (todo.get('selected')) {
-                    allClear = false;
-                } else {
-                    allSet = false;
-                }
-            });
-            if (!allClear){
-                $('.delete-selected a').show();
-            }else{
-                $('.delete-selected a').hide();
-            }
-            this.render();
-        },
-        render : function(){
-            var self = this;
-            _.delay(function(){
-                self.$el.html('');
-                _.each(self.model.toArray(), function(todo, index){
-                    todo = new TodoView({model: todo});
-                    self.$el.append(todo.$el);
-                    todo.render();
-                });
-            }, 0);
-            return this;
-        }
-    });
 
+    var Todo = function(id, todo){
+        Object.defineProperties(this, {
+            id : {
+                value: id,
+                enumerable : true
+            },
+            selected : {
+                value : ko.observable(false),
+                writable : true,
+                enumerable : true
+            },
+            todo : {
+                value : ko.observable(todo),
+                writable : true,
+                enumerable : true
+            },
+            actionVisible: {
+                value : ko.observable(false),
+                writable: true,
+                enumerable: true
+            }
+        });
+    };
+
+    var TodoViewModel = function(){
+        Object.defineProperties(this, {
+            todos : {
+                value : ko.observableArray([
+                    new Todo(0, 'Create'),
+                    new Todo(1, 'Read'),
+                    new Todo(2, 'Update'),
+                    new Todo(3, 'Delete')
+                ]),
+                enumerable : true,
+                writable : true
+            },
+            todoValue : {
+                value : ko.observable(''),
+                enumerable: true,
+                writable: true
+            }
+        });
+    };
+
+    Object.defineProperties(TodoViewModel.prototype, {
+        deleteTodo : {
+            value : function(todo){
+                this.todos.remove(todo);
+            },
+            enumerable : true
+        },
+        showAction : {
+            value : function(todo){ 
+                todo.actionVisible(true);
+            },
+            enumerable : true
+        },
+        hideAction : {
+            value : function(todo){ 
+                todo.actionVisible(false);
+            },
+            enumerable : true
+        },
+        addTodo : {
+            value : function(){
+                var todo = this.todoValue;
+                this.todos.push(new Todo(this.todos.length++, todo()));
+                todo('');
+            },
+            enumerable: true
+        },
+        selectAllTodos : {
+            value: function(value){
+                console.log(value)
+                for(var i = this.todos().length; i--;){
+                    this.todos()[i].selected(true);
+                }
+            },
+            enumerable: true
+        },
+        deleteAllTodos : {
+            value: function(){
+                this.todos([]);
+            },
+            enumerable: true
+        }
+    });
 
     $(document).ready(function(){
-        var todoAppView = new TodosView();
-        todoAppView.render();
-        $('.add-todo-form').submit(function(e){
-            var todo = new Todo({todo: $('#add-todo-input').val(),id : todoAppView.model.toArray().length++});
-            todos.add(todo);
-            $('#add-todo-input').val("");
-            e.preventDefault();
-        });
-        $('.add-todo-form .toggle').change(function(e){
-            var self = this;
-            _.each(todoAppView.model.toArray(), function(todo, index){
-                todo.set({selected: self.checked});
-            });
-        });
-        $('.delete-selected a').click(function(e){
-             _.each(todoAppView.model.toArray(), function(todo, index){
-                if(todo.get('selected')){
-                    todoAppView.model.remove(todo)
-                }
-            });
-            e.preventDefault();
-        });
+        ko.applyBindings(new TodoViewModel());
     });
 
 })(jQuery);
