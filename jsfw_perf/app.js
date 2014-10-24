@@ -4,18 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var ejs = require('ejs');
+ejs.open = '{%';
+ejs.close = '%}';
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var angular = require('./routes/angular');
 var backbone = require('./routes/backbone');
 var knockout = require('./routes/knockout');
+// var users = require('./routes/users');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -27,10 +31,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/angular', angular);
 app.use('/backbone', backbone);
 app.use('/knockout', knockout);
+// app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

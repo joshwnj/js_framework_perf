@@ -1,0 +1,50 @@
+{% include header %}
+<section class="container">
+    <h1 class="vendor-logo">
+        <img src="http://apps.wawax.co/images/ko-logo.png"/>
+    </h1>
+    <div class="col-md-6 col-md-offset-3 yellow-paper">
+        <div class="yellowpage-header">
+            <span class="delete-selected">
+                <a href="#" data-bind="click: deleteSelectedTodos, style: {display: allClear() ? 'none': 'block'}" title="Delete Selected"> <img src="/images/eraser.png" alt="Delete Selected"/></a>
+            </span>
+            <h1 class="title my-title">my todo list</h1>
+        </div>
+        <form class="add-todo-form" data-bind="submit: addTodo">
+            <input type="checkbox" class="toggle" data-bind="checked: selectAll, click: selectAllTodos">
+            <label for="add-todo-input" class="add-todo-input">
+                <input type="text" name="todo" id="add-todo-input" data-bind="value: todoValue, valueUpdate: 'input'" placeholder="List what to do...">
+            </label>
+        </form>
+        <ul class="todo-list" data-bind="foreach: todos">
+            <li data-bind="event: {mouseover: $parent.showAction, mouseout: $parent.hideAction}">
+                <input class="toggle select-todo" type="checkbox" data-bind="value:id, checked: selected" >
+                <label data-bind="css: {selected: selected }, text: todo()"></label>
+                <span class="action" data-bind="style: {display: actionVisible() ? 'table' : 'none'}">
+                    <a href="#" class="edit-btn"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="delete-btn" data-bind="click: $parent.deleteTodo.bind($parent)"><i class="fa fa-times"></i></a>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <button onclick="startAddition();">Insert 100 items</button>
+        <p class="print-wrap" id="simulation-time-add-wrap">Total time: 0 ms</p>
+        <button onclick="selectAll();">Select all items</button>
+        <p class="print-wrap" id="simulation-time-select-wrap">Total time: 0 ms</p>
+        <button onclick="deleteAll();">Delete all items</button>
+        <p class="print-wrap" id="simulation-time-delete-wrap">Total time: 0 ms</p>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>The Code</h3>
+            <pre>
+{%= code %}
+            </pre>
+        </div>
+    </div>
+</section>
+{% include footer %}
+<script src="/bower_components/knockout/dist/knockout.js" type="text/javascript"></script>
+<script src="/javascripts/knockout.app.js" type="text/javascript"></script>
+<script src="/javascripts/simulation.js" type="text/javascript"></script>

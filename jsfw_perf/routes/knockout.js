@@ -1,10 +1,12 @@
+var fs = require('fs');
 var express = require('express');
 var path = require('path');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res) {
-  	res.sendFile(path.join(__dirname, '../public', 'knockout.html'))
+	fs.readFile(path.join(__dirname, '../public', 'javascripts', 'knockout.app.js'), 'utf-8', function(err, data){
+  		res.render('knockout', { title: 'Knockout - Performance Evaluation', code : data });
+	});
 });
 
 module.exports = router;

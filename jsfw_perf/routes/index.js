@@ -1,11 +1,12 @@
+var fs = require('fs');
 var express = require('express');
 var path = require('path');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  	// res.render('index', { title: 'Express' });
-  	res.sendFile(path.join(__dirname, '../public', 'index.html'))
+	fs.readFile(path.join(__dirname, '../public', 'javascripts', 'simulation.js'), 'utf-8', function(err, data){
+  		res.render('index', { title: 'Front-end Frameworks Performance Evaluation', code : data });
+	});
 });
-
 module.exports = router;
