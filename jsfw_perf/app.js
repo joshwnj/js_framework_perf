@@ -12,6 +12,7 @@ var routes = require('./routes/index');
 var angular = require('./routes/angular');
 var backbone = require('./routes/backbone');
 var knockout = require('./routes/knockout');
+var ember = require('./routes/ember');
 // var users = require('./routes/users');
 
 var app = express();
@@ -34,6 +35,7 @@ app.use('/', routes);
 app.use('/angular', angular);
 app.use('/backbone', backbone);
 app.use('/knockout', knockout);
+app.use('/ember', ember);
 // app.use('/users', users);
 
 // catch 404 and forward to error handler

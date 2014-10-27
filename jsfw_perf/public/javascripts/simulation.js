@@ -1,3 +1,6 @@
+var deleteTime = 0;
+var addTime = 0;
+var selectTime = 0;
 function startAddition(){
     var startTime = Date.now()
     var newTodo = document.getElementById('add-todo-input');
@@ -13,6 +16,8 @@ function startAddition(){
     }
     totalTime = Date.now() - startTime;
     printTime.innerHTML = 'Total time: ' + totalTime + ' ms'
+    console.log("insert: " + (addTime + totalTime))
+    addTime += totalTime;
 }
 function deleteAll(){
     var startTime = Date.now()
@@ -23,6 +28,8 @@ function deleteAll(){
     }
     totalTime = Date.now() - startTime;
     printTime.innerHTML = 'Total time: ' + totalTime + ' ms'
+    console.log("delete: " + (deleteTime + totalTime))
+    deleteTime += totalTime;
 }
 function selectAll(){
     var startTime = Date.now()
@@ -36,4 +43,6 @@ function selectAll(){
     }
     totalTime = Date.now() - startTime;
     printTime.innerHTML = 'Total time: ' + totalTime + ' ms'
+    console.log("select: " + (selectTime + totalTime))
+    selectTime += totalTime;
 }

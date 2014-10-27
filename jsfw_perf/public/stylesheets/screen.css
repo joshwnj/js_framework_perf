@@ -79,7 +79,7 @@ section .yellow-paper .yellowpage-header {
 }
 /* line 78, ../../sass/screen.scss */
 section .yellow-paper .yellowpage-header .my-title {
-  font-size: 5em;
+  font-size: 3em;
   text-align: center;
   margin: 20px 0;
   margin-left: 78px;
@@ -186,11 +186,12 @@ section .toggle {
 }
 /* line 175, ../../sass/screen.scss */
 section .print-wrap {
+  display: inline-block;
   margin: 10px 0;
   font-size: 1.3em;
 }
 
-/* line 180, ../../sass/screen.scss */
+/* line 181, ../../sass/screen.scss */
 .vendor-logo img {
   width: 300px;
 }

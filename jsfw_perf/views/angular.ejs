@@ -3,7 +3,7 @@
     <h1 class="vendor-logo">
         <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/AngularJS_logo.svg/695px-AngularJS_logo.svg.png"/>
     </h1>
-    <div class="col-md-6 col-md-offset-3 yellow-paper">
+    <div class="col-md-5 yellow-paper">
         <div class="yellowpage-header">
             <span class="delete-selected">
                 <a href="#" 
@@ -32,21 +32,17 @@
             </li>
         </ul>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-7">
         <button onclick="startAddition();">Insert 100 items</button>
-        <p class="print-wrap" id="simulation-time-add-wrap">Total time: 0 ms</p>
+        <p class="print-wrap" id="simulation-time-add-wrap">Total time: 0 ms</p><br/>
         <button onclick="selectAll();">Select all items</button>
-        <p class="print-wrap" id="simulation-time-select-wrap">Total time: 0 ms</p>
+        <p class="print-wrap" id="simulation-time-select-wrap">Total time: 0 ms</p><br/>
         <button onclick="deleteAll();">Delete all items</button>
-        <p class="print-wrap" id="simulation-time-delete-wrap">Total time: 0 ms</p>
-    </div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h3>The Code</h3>
-            <pre>
+        <p class="print-wrap" id="simulation-time-delete-wrap">Total time: 0 ms</p><br/>
+        <h3>The Code</h3>
+        <pre>
 {%= code %}
-            </pre>
-        </div>
+        </pre>
     </div>
 </section>
 {% include footer %}

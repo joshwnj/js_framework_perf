@@ -1,25 +1,54 @@
 {% include header %}
 <section class="container">
-    <h1>Front-end Frameworks Performance Evaluation</h1>
-    <p>One of X-Lab project that comprehensively compare several JS Frameworks.</p>
-    <h4>Frameworks compared</h4>
-    <ul>
-        <li>AngularJS</li>
-        <li>Backbone</li>
-    </ul>
-    <h4>Results</h4>
-    <h5>Average of 10 tests.</h5>
-    <ul>
-        <li>Chrome
-            <ul>
-                <li>AngularJS</li>
-                <li>Backbone</li>
-                <li>Knockout</li>
-            </ul>
-        </li>
-    </ul>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-5">
+            <h1>Front-end Frameworks Performance Evaluation</h1>
+            <p>One of X-Lab project that comprehensively compare several JS Frameworks.</p>
+            <h4>Frameworks compared</h4>
+            <ul>
+                <li><a href="/angular">Angular</a></li>
+                <li><a href="/backbone">Backbone</a></li>
+                <li><a href="/knockout">Knockout</a></li>
+                <li><a href="/ember">Ember</a></li>
+            </ul>
+            <h4>Results</h4>
+            <h5>Average on 10 simulation.</h5>
+            <ul>
+                <li>Chrome
+                    <ul>
+                        <li>AngularJS 
+                            <pre>{
+    insert 100 items: 359 ms, 
+    select all items: 190.4 ms, 
+    delete all items: 189.4 ms
+}</pre>
+                        </li>
+                        <li>Backbone
+                            <pre>{
+    insert 100 items: 21.8 ms, 
+    select all items: 12758.0 ms, 
+    delete all items: 128.8 ms
+}</pre>
+                        </li>
+                        <li>Knockout
+                            <pre>{
+    insert 100 items: 182.5 ms, 
+    select all items: 72 ms, 
+    delete all items: 148.4 ms
+}</pre>
+                        </li>
+                        <li>Ember
+                            <pre>{
+    insert 100 items: 0 ms , 
+    select all items: 0 ms, 
+    delete all items: 0 ms
+}</pre>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-7">
             <h3>The Simulation Code</h3>
             <pre>
 {%= code %}

@@ -76,7 +76,7 @@ section{
 		.yellowpage-header{
 			position: relative;
 			.my-title{
-				font-size: 5em;
+				font-size: 3em;
 				text-align: center;
 				margin: 20px 0;
 				margin-left: 78px;
@@ -173,6 +173,7 @@ section{
 		// appearance: none;
 	}
 	.print-wrap{
+		display: inline-block;
 		margin: 10px 0;
 		font-size: 1.3em;
 	}
