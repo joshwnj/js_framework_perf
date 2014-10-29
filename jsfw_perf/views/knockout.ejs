@@ -43,4 +43,15 @@
 {% include footer %}
 <script src="/bower_components/knockout/dist/knockout.js" type="text/javascript"></script>
 <script src="/javascripts/knockout.app.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var todoView = new TodoViewModel();
+        for(var i = todoView.todos().length; i--;){
+            todoView.todos()[i].selected.subscribe(function(newValue) {
+                todoView.watchSelected();
+            });
+        }
+        ko.applyBindings(todoView);
+    });
+</script>
 <script src="/javascripts/simulation.js" type="text/javascript"></script>

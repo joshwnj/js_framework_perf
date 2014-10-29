@@ -44,4 +44,30 @@
 <script src="/bower_components/underscore/underscore-min.js" type="text/javascript"></script>
 <script src="/bower_components/backbone/backbone.js" type="text/javascript"></script>
 <script src="/javascripts/backbone.app.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var todoAppView = new TodosView();
+        todoAppView.render();
+        $('.add-todo-form').submit(function(e){
+            var todo = new Todo({todo: $('#add-todo-input').val(),id : todoAppView.model.toArray().length++});
+            todos.add(todo);
+            $('#add-todo-input').val("");
+            e.preventDefault();
+        });
+        $('.add-todo-form .toggle').change(function(e){
+            var self = this;
+            _.each(todoAppView.model.toArray(), function(todo, index){
+                todo.set({selected: self.checked});
+            });
+        });
+        $('.delete-selected a').click(function(e){
+             _.each(todoAppView.model.toArray(), function(todo, index){
+                if(todo.get('selected')){
+                    todoAppView.model.remove(todo)
+                }
+            });
+            e.preventDefault();
+        });
+    });
+</script>
 <script src="/javascripts/simulation.js" type="text/javascript"></script>

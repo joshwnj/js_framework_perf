@@ -27,7 +27,7 @@ var TodoView = Backbone.View.extend({
     },
     initialize: function(){
         this.template = _.template($('#todo-template').html());
-        this.model.on('change', this.render, this);
+        this.listenTo(this.model, { change: this.render });
     },
     render: function(){
         this.$el.html(this.template(this.model.toJSON()));
@@ -90,30 +90,4 @@ var TodosView = Backbone.View.extend({
         }, 0);
         return this;
     }
-});
-
-
-$(document).ready(function(){
-    var todoAppView = new TodosView();
-    todoAppView.render();
-    $('.add-todo-form').submit(function(e){
-        var todo = new Todo({todo: $('#add-todo-input').val(),id : todoAppView.model.toArray().length++});
-        todos.add(todo);
-        $('#add-todo-input').val("");
-        e.preventDefault();
-    });
-    $('.add-todo-form .toggle').change(function(e){
-        var self = this;
-        _.each(todoAppView.model.toArray(), function(todo, index){
-            todo.set({selected: self.checked});
-        });
-    });
-    $('.delete-selected a').click(function(e){
-         _.each(todoAppView.model.toArray(), function(todo, index){
-            if(todo.get('selected')){
-                todoAppView.model.remove(todo)
-            }
-        });
-        e.preventDefault();
-    });
 });

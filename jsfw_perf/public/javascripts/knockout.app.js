@@ -119,13 +119,3 @@ Object.defineProperties(TodoViewModel.prototype, {
         enumerable : true
     }
 });
-
-$(document).ready(function(){
-    var todoView = new TodoViewModel();
-    for(var i = todoView.todos().length; i--;){
-        todoView.todos()[i].selected.subscribe(function(newValue) {
-            todoView.watchSelected();
-        });
-    }
-    ko.applyBindings(todoView);
-});
