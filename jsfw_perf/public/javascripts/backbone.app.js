@@ -57,7 +57,8 @@ var TodosView = Backbone.View.extend({
     model : todos,
     el : $('.todo-list'),
     initialize : function(){
-        this.model.on('add', this.render, this);
+        this.todoViews = [];
+        this.model.on('add', this.updateRender, this);
         this.model.on('remove', this.change, this);
         this.model.on('change', this.change, this);
     },
@@ -78,12 +79,21 @@ var TodosView = Backbone.View.extend({
         }
         this.render();
     },
+    updateRender : function(){
+        var self = this;
+        _.each(self.todoViews, function(todoView, index){
+            todoView.remove();
+        });
+        self.todoViews = [];
+        self.render();
+    },
     render : function(){
         var self = this;
         _.delay(function(){
             self.$el.html('');
             _.each(self.model.toArray(), function(todo, index){
                 todo = new TodoView({model: todo});
+                self.todoViews.push(todo);
                 self.$el.append(todo.$el);
                 todo.render();
             });
