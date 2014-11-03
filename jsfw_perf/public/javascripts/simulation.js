@@ -36,9 +36,9 @@ function selectAll(){
     var printTime = document.getElementById('simulation-time-select-wrap');
     var inputSelects = document.querySelectorAll('.select-todo');
     for(var i = inputSelects.length; i--;){
-        var inputEvent = document.createEvent('Event');
+        var inputEvent = document.createEvent('MouseEvent');
         inputEvent.initEvent('click', true, true);
-        inputSelects[i].checked = true;
+        // inputSelects[i].checked = true;
         inputSelects[i].dispatchEvent(inputEvent);
     }
     totalTime = Date.now() - startTime;

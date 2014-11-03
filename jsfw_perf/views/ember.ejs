@@ -1,31 +1,11 @@
 {% include header %}
+<script type='text/x-handlebars' data-template-name='application'>
 <section class="container">
     <h1 class="vendor-logo">
         <img src="http://emberjs.com/images/logos/ember-logo.png"/>
     </h1>
     <div class="col-md-5 yellow-paper">
-        <div class="yellowpage-header">
-            <span class="delete-selected">
-                <a href="#" data-bind="click: deleteSelectedTodos, style: {display: allClear() ? 'none': 'block'}" title="Delete Selected"> <img src="/images/eraser.png" alt="Delete Selected"/></a>
-            </span>
-            <h1 class="title my-title">my todo list</h1>
-        </div>
-        <form class="add-todo-form" data-bind="submit: addTodo">
-            <input type="checkbox" class="toggle" data-bind="checked: selectAll, click: selectAllTodos">
-            <label for="add-todo-input" class="add-todo-input">
-                <input type="text" name="todo" id="add-todo-input" data-bind="value: todoValue, valueUpdate: 'input'" placeholder="List what to do...">
-            </label>
-        </form>
-        <ul class="todo-list" data-bind="foreach: todos">
-            <li data-bind="event: {mouseover: $parent.showAction, mouseout: $parent.hideAction}">
-                <input class="toggle select-todo" type="checkbox" data-bind="value:id, checked: selected" >
-                <label data-bind="css: {selected: selected }, text: todo()"></label>
-                <span class="action" data-bind="style: {display: actionVisible() ? 'table' : 'none'}">
-                    <a href="#" class="edit-btn"><i class="fa fa-pencil"></i></a>
-                    <a href="#" class="delete-btn" data-bind="click: $parent.deleteTodo.bind($parent)"><i class="fa fa-times"></i></a>
-                </span>
-            </li>
-        </ul>
+        {{outlet}}
     </div>
     <div class="col-md-7">
         <button onclick="startAddition();">Insert 100 items</button>
@@ -40,12 +20,37 @@
         </pre>
     </div>
 </section>
+</script> 
+<!-- TEMPLATES -->
+<script type="text/x-handlebars" data-template-name="todos">
+<div class="yellowpage-header">
+    <span class="delete-selected">
+        <a href="#" {{bind-attr class="noSelected:hide" }} title="Delete Selected" {{action deleteSelected on="click" }}> <img src="/images/eraser.png" alt="Delete Selected"/></a>
+    </span>
+    <h1 class="title my-title">my todo list</h1>
+</div>
+<form class="add-todo-form" {{action "createTodo" on="submit"}}>
+    {{input class="toggle" type='checkbox' checked=allSelected}}
+    <label for="add-todo-input" class="add-todo-input">
+        {{input type="text" id="add-todo-input" name="todo" placeholder="List what to do..." value=newTodo }}
+    </label>
+</form>
+<ul class="todo-list">
+    {{#each model}}
+    <li>
+        {{input class="toggle select-todo" type='checkbox' checked=selected value=id }}
+        <label {{bind-attr class=selected}}>{{ todo }}</label>
+        <span class="action">
+            <a href="#" class="edit-btn"><i class="fa fa-pencil"></i></a>
+            <a href="#" {{action "deleteTodo" this on="click" }} class="delete-btn"><i class="fa fa-times"></i></a>
+        </span>
+    </li>
+    {{/each}}
+</ul>
+</script> 
+
 {% include footer %}
-<!-- TEMPLATE --> 
-<script type="text/x-handlebars" id="todo-template">
-    
-</script>
-<script src="/bower_components/ember/ember.min.js" type="text/javascript"></script>
 <script src="/bower_components/handlebars/handlebars.min.js" type="text/javascript"></script>
-<script src="/javascripts/knockout.app.js" type="text/javascript"></script>
+<script src="/bower_components/ember/ember.min.js" type="text/javascript"></script>
+<script src="/javascripts/ember.app.js" type="text/javascript"></script>
 <script src="/javascripts/simulation.js" type="text/javascript"></script>
