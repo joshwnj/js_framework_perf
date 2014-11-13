@@ -8,11 +8,11 @@
         {{outlet}}
     </div>
     <div class="col-md-7">
-        <button onclick="startAddition();">Insert 100 items</button>
+        <button onclick="benchmark('add', startAddition);">Insert 100 items</button>
         <p class="print-wrap" id="simulation-time-add-wrap">Total time: 0 ms</p><br/>
-        <button onclick="selectAll();">Select all items</button>
+        <button onclick="benchmark('select', selectAll);">Select all items</button>
         <p class="print-wrap" id="simulation-time-select-wrap">Total time: 0 ms</p><br/>
-        <button onclick="deleteAll();">Delete all items</button>
+        <button onclick="benchmark('delete', deleteAll);">Delete all items</button>
         <p class="print-wrap" id="simulation-time-delete-wrap">Total time: 0 ms</p><br/>
         <h3>The Code</h3>
         <pre>
@@ -29,10 +29,10 @@
     </span>
     <h1 class="title my-title">my todo list</h1>
 </div>
-<form class="add-todo-form" {{action "createTodo" on="submit"}}>
+<form class="add-todo-form" {{action "upsertTodo" on="submit"}}>
     {{input class="toggle" type='checkbox' checked=allSelected}}
     <label for="add-todo-input" class="add-todo-input">
-        {{input type="text" id="add-todo-input" name="todo" placeholder="List what to do..." value=newTodo }}
+        {{input type="text" id="add-todo-input" name="todo" placeholder="List what to do..." value=todoValue}}
     </label>
 </form>
 <ul class="todo-list">
@@ -41,7 +41,7 @@
         {{input class="toggle select-todo" type='checkbox' checked=selected value=id }}
         <label {{bind-attr class=selected}}>{{ todo }}</label>
         <span class="action">
-            <a href="#" class="edit-btn"><i class="fa fa-pencil"></i></a>
+            <a href="#" {{action "editTodo" this on="click" }} class="edit-btn"><i class="fa fa-pencil"></i></a>
             <a href="#" {{action "deleteTodo" this on="click" }} class="delete-btn"><i class="fa fa-times"></i></a>
         </span>
     </li>

@@ -10,7 +10,7 @@
             </span>
             <h1 class="title my-title">my todo list</h1>
         </div>
-        <form class="add-todo-form" data-bind="submit: addTodo">
+        <form class="add-todo-form" data-bind="submit: upsertTodo">
             <input type="checkbox" class="toggle" data-bind="checked: selectAll, click: selectAllTodos">
             <label for="add-todo-input" class="add-todo-input">
                 <input type="text" name="todo" id="add-todo-input" data-bind="value: todoValue, valueUpdate: 'input'" placeholder="List what to do...">
@@ -21,18 +21,18 @@
                 <input class="toggle select-todo" type="checkbox" data-bind="value:id, checked: selected" >
                 <label data-bind="css: {selected: selected }, text: todo()"></label>
                 <span class="action" data-bind="style: {display: actionVisible() ? 'table' : 'none'}">
-                    <a href="#" class="edit-btn"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="edit-btn" data-bind="click: $parent.editTodo.bind($parent)"><i class="fa fa-pencil"></i></a>
                     <a href="#" class="delete-btn" data-bind="click: $parent.deleteTodo.bind($parent)"><i class="fa fa-times"></i></a>
                 </span>
             </li>
         </ul>
     </div>
     <div class="col-md-7">
-        <button onclick="startAddition();">Insert 100 items</button>
+        <button onclick="benchmark('add', startAddition);">Insert 100 items</button>
         <p class="print-wrap" id="simulation-time-add-wrap">Total time: 0 ms</p><br/>
-        <button onclick="selectAll();">Select all items</button>
+        <button onclick="benchmark('select', selectAll);">Select all items</button>
         <p class="print-wrap" id="simulation-time-select-wrap">Total time: 0 ms</p><br/>
-        <button onclick="deleteAll();">Delete all items</button>
+        <button onclick="benchmark('delete', deleteAll);">Delete all items</button>
         <p class="print-wrap" id="simulation-time-delete-wrap">Total time: 0 ms</p><br/>
         <h3>The Code</h3>
         <pre>

@@ -4,7 +4,7 @@ todo.controller('TodoController', [
     '$scope',
     function($scope){
         $scope.currentIndex;
-        $scope.formData = {}
+        $scope.formData = {};
         $scope.todoList = [
             {todo : 'Create'},
             {todo : 'Read'},
@@ -19,7 +19,7 @@ todo.controller('TodoController', [
                     $scope.todoList.push($scope.formData);
                 }
             }
-            $scope.formData = {}
+            $scope.formData = {};
         }
         this.editTodo = function(event, index){
             event.preventDefault();

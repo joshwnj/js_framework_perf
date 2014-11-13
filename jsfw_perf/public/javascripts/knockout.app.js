@@ -34,6 +34,11 @@ var TodoViewModel = function(){
             enumerable : true,
             writable : true
         },
+        selectedTodo : {
+            value : null,
+            enumerable: true,
+            writable: true
+        },
         todoValue : {
             value : ko.observable(''),
             enumerable: true,
@@ -53,6 +58,13 @@ var TodoViewModel = function(){
 };
 
 Object.defineProperties(TodoViewModel.prototype, {
+    editTodo : {
+        value : function(todo){
+            this.selectedTodo = todo;
+            this.todoValue(todo.todo());
+        },
+        enumerable : true
+    },
     deleteTodo : {
         value : function(todo){
             this.todos.remove(todo);
@@ -71,14 +83,19 @@ Object.defineProperties(TodoViewModel.prototype, {
         },
         enumerable : true
     },
-    addTodo : {
+    upsertTodo : {
         value : function(){
             var self = this;
-            var todo = new Todo(this.todos.length++, this.todoValue());
-            todo.selected.subscribe(function(newValue) {
-                self.watchSelected();
-            });
-            this.todos.push(todo);
+            if(self.selectedTodo == null){
+                var todo = new Todo(this.todos.length++, this.todoValue());
+                todo.selected.subscribe(function(newValue) {
+                    self.watchSelected();
+                });
+                this.todos.push(todo);
+            }else{
+                self.selectedTodo.todo(this.todoValue());
+                self.selectedTodo = null;
+            }
             this.todoValue('');
         },
         enumerable: true

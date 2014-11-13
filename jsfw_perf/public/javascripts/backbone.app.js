@@ -25,7 +25,8 @@ var TodoView = Backbone.View.extend({
         'mouseover' : 'toggleAction',
         'mouseout' : 'toggleAction'
     },
-    initialize: function(){
+    initialize: function(options){
+        this.parent = options.parent;
         this.template = _.template($('#todo-template').html());
         this.listenTo(this.model, { change: this.render });
     },
@@ -46,6 +47,8 @@ var TodoView = Backbone.View.extend({
         e.preventDefault();
     },
     editTodo : function(e){
+        this.parent.selectedTodo = this.model;
+        this.parent.todoForm.$el.find('#add-todo-input').val(this.model.get('todo'));
         e.preventDefault();
     },
     deleteTodo : function(e){
@@ -57,8 +60,10 @@ var TodosView = Backbone.View.extend({
     model : todos,
     el : $('.todo-list'),
     initialize : function(){
+        this.selectedTodo = null;
+        this.todoForm = new TodoForm({parent: this});
         this.todoViews = [];
-        this.model.on('add', this.updateRender, this);
+        this.model.on('add', this.render, this);
         this.model.on('remove', this.change, this);
         this.model.on('change', this.change, this);
     },
@@ -79,25 +84,38 @@ var TodosView = Backbone.View.extend({
         }
         this.render();
     },
-    updateRender : function(){
-        var self = this;
-        _.each(self.todoViews, function(todoView, index){
-            todoView.remove();
-        });
-        self.todoViews = [];
-        self.render();
-    },
     render : function(){
         var self = this;
         _.delay(function(){
             self.$el.html('');
             _.each(self.model.toArray(), function(todo, index){
-                todo = new TodoView({model: todo});
-                self.todoViews.push(todo);
+                todo = new TodoView({model: todo, parent: self});
                 self.$el.append(todo.$el);
                 todo.render();
             });
         }, 0);
         return this;
+    }
+});
+var TodoForm = Backbone.View.extend({
+    el : $('.add-todo-form'),
+    initialize : function (options) {
+        this.parent = options.parent;
+    },
+    events : {
+        'submit' : 'upsertTodo'
+    },
+    upsertTodo : function(e){
+        var form = this.$el;
+        var input = form.find('#add-todo-input');
+        if(this.parent.selectedTodo == null){
+            var todo = new Todo({todo: input.val(),id : this.parent.model.toArray().length++});
+            this.parent.model.add(todo);
+        }else{
+            this.parent.selectedTodo.set({todo: input.val()})
+        }
+        input.val("").blur();
+        this.parent.selectedTodo = null;
+        e.preventDefault();
     }
 });

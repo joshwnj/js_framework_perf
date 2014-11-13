@@ -33,11 +33,11 @@
         </ul>
     </div>
     <div class="col-md-7">
-        <button onclick="startAddition();">Insert 100 items</button>
+        <button onclick="benchmark('add', startAddition);">Insert 100 items</button>
         <p class="print-wrap" id="simulation-time-add-wrap">Total time: 0 ms</p><br/>
-        <button onclick="selectAll();">Select all items</button>
+        <button onclick="benchmark('select', selectAll);">Select all items</button>
         <p class="print-wrap" id="simulation-time-select-wrap">Total time: 0 ms</p><br/>
-        <button onclick="deleteAll();">Delete all items</button>
+        <button onclick="benchmark('delete', deleteAll);">Delete all items</button>
         <p class="print-wrap" id="simulation-time-delete-wrap">Total time: 0 ms</p><br/>
         <h3>The Code</h3>
         <pre>
