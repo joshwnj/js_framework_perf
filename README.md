@@ -1,4 +1,4 @@
-JS Framwork Perf
+JS Framework Perf
 ====
 
-#### Comparison of serveral JS Frameworks in renderding performance natively and additional boost by integrating ReactJS in each frameworks View.
+Comparison of several JS frameworks in rendering performance. Also comparing any additional boost gained by integrating ReactJS in each framework's View.
